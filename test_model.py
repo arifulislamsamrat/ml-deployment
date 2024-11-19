@@ -3,8 +3,17 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.datasets import make_classification
 
-# Generate sample data
-X, y = make_classification(n_samples=100, n_features=2, n_classes=2)
+# Generate sample data with corrected parameters
+X, y = make_classification(
+    n_samples=100,          # Number of samples
+    n_features=2,           # Number of features
+    n_classes=2,            # Number of classes
+    n_informative=2,        # Number of informative features (must be <= n_features)
+    n_redundant=0,          # No redundant features
+    n_repeated=0,           # No repeated features
+    random_state=42         # For reproducibility
+)
+
 X_train = X[:80]
 X_test = X[80:]
 y_train = y[:80]
@@ -16,7 +25,7 @@ mlflow.set_tracking_uri("http://localhost:5000")
 # Start MLflow run
 with mlflow.start_run():
     # Train model
-    model = RandomForestClassifier()
+    model = RandomForestClassifier(random_state=42)
     model.fit(X_train, y_train)
     
     # Log metrics
