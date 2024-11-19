@@ -2,8 +2,16 @@ import requests
 import numpy as np
 from sklearn.datasets import make_classification
 
-# Generate some test data
-X, _ = make_classification(n_samples=2, n_features=2, n_classes=2)
+# Generate some test data with correct parameters
+X, _ = make_classification(
+    n_samples=2,           # Number of samples
+    n_features=2,          # Total features
+    n_classes=2,           # Number of classes
+    n_informative=2,       # Number of informative features
+    n_redundant=0,         # No redundant features
+    n_repeated=0,          # No repeated features
+    random_state=42        # For reproducibility
+)
 
 # Format data for API
 data = {
@@ -12,6 +20,8 @@ data = {
         {'feature1': float(X[1][0]), 'feature2': float(X[1][1])}
     ]
 }
+
+print("Sending data:", data)
 
 # Make prediction request
 try:

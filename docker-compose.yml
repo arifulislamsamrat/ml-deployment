@@ -26,6 +26,7 @@ services:
       - MLFLOW_TRACKING_URI=http://mlflow-server:5000
     volumes:
       - .:/usr/src/app
+      - ./mlflow/artifacts:/mlflow/artifacts
     networks:
       - ml-network
 
